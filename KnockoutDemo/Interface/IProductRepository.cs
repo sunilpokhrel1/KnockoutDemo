@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KnockoutDemo.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace KnockoutDemo.Interface
         TblProductList Add(TblProductList item);
         bool Update(TblProductList item);
         bool Delete(int id);
+       // TblProductList Add(TblProductList item);
     }
 }

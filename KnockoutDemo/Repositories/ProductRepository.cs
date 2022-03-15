@@ -1,4 +1,5 @@
 ﻿using KnockoutDemo.Interface;
+using KnockoutDemo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace KnockoutDemo.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        ProductDBEntities ProductDB = new ProductDBEntities();
+        ProductListEntities3 ProductDB = new ProductListEntities3();
 
         public IEnumerable<TblProductList> GetAll()
         {
@@ -30,8 +31,16 @@ namespace KnockoutDemo.Repositories
             }
 
             // TO DO : Code to save record into database
+            try { 
             ProductDB.TblProductLists.Add(item);
             ProductDB.SaveChanges();
+            }
+           
+            
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.Message);
+            }
             return item;
         }
 
@@ -42,9 +51,11 @@ namespace KnockoutDemo.Repositories
                 throw new ArgumentNullException("item");
             }
 
-            // TO DO : Code to update record into database
 
-            var products = ProductDB.TblProductLists.Single(a => a.Id == item.Id);
+
+            // TO DO : Code to update record into database
+            // TblProductList products = ProductDB.TblProductLists.Find(item);
+            var products = ProductDB.TblProductLists.FirstOrDefault(a => a.Id == item.Id);
             products.Name = item.Name;
             products.Category = item.Category;
             products.Price = item.Price;

@@ -1,5 +1,7 @@
-﻿function formatCurrency(value) {
-    return "₹ " + value.toFixed(2);
+﻿//const { json } = require("modernizr");
+
+function formatCurrency(value) {
+    return "RS. " + value.toFixed(2);
 }
 
 function ProductViewModel() {
@@ -56,6 +58,7 @@ function ProductViewModel() {
                 data: ko.toJSON(Product),
                 success: function (data) {
                     self.Products.push(data);
+                    debugger
                     self.Name("");
                     self.Price("");
                     self.Category("");
@@ -98,22 +101,29 @@ function ProductViewModel() {
     // Update product details
     self.update = function () {
         var Product = self.Product();
+        var id = Product.Id;
+        debugger
 
         $.ajax({
-            url: 'Product/EditProduct',
+            url: 'Product/EditProduct/ ',
             cache: false,
-            type: 'PUT',
+
+            type: 'POST',
             contentType: 'application/json; charset=utf-8',
-            data: ko.toJSON(Product),
-            success: function (data) {
+            data: JSON.stringify(
+                {Id:id,product: Product }),
+            
+            success: function (data) {debugger
                 self.Products.removeAll();
                 self.Products(data); //Put the response in ObservableArray
                 self.Product(null);
                 alert("Record Updated Successfully");
             }
+
         })
             .fail(
                 function (xhr, textStatus, err) {
+                    debugger
                     alert(err);
                 });
     }

@@ -1,4 +1,5 @@
 ﻿using KnockoutDemo.Interface;
+using KnockoutDemo.Models;
 using KnockoutDemo.Repositories;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,9 @@ namespace KnockoutDemo.Controllers
             return Json(item, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditProduct(int id, TblProductList product)
+        public JsonResult EditProduct(int Id, TblProductList product)
         {
-            product.Id = id;
+            product.Id = Id;
             if (repository.Update(product))
             {
                 return Json(repository.GetAll(), JsonRequestBehavior.AllowGet);
